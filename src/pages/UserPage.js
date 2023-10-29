@@ -8,24 +8,11 @@ const UserPage = () => {
   const { name } = params;
   const [data, setData] = useState("");
   const db = database;
-  const createDataBase = () => {
-    if (data === "") {
-      console.log("set");
-      set(ref(db, "textCraft/" + name), {
-        sharedText: "",
-      });
-      return;
-    }
-    update(ref(db, "textCraft/" + name), {
-      sharedText: data,
-    });
-  };
+
   const getDataBase = () => {
     onValue(ref(db, "textCraft/" + name), (snapshot) => {
       const resData = snapshot.val();
-
       if (resData === null) {
-        console.log(resData);
         set(ref(db, "textCraft/" + name), {
           sharedText: "",
         });
@@ -37,14 +24,25 @@ const UserPage = () => {
   const onFormChange = (e) => {
     const value = e.target.value;
     setData(value);
-    createDataBase();
+    setTimeout(() => {
+      update(ref(db, "textCraft/" + name), {
+        sharedText: value,
+      });
+    }, 2000);
   };
+
   useEffect(() => {
     getDataBase();
   }, []);
 
   return (
-    <textarea value={data} onChange={onFormChange} className="w-100 vh-100" />
+    <textarea
+      value={data}
+      onChange={onFormChange}
+      placeholder="Type Your Text Here ..."
+      className="w-100 border-0 input-focus-none"
+      style={{ height: "98vh" }}
+    />
   );
 };
 
