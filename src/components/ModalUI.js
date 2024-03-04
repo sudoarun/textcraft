@@ -10,6 +10,7 @@ const ModalUI = ({
   setIsModalOpen,
   docName,
   setProtectedSheet,
+  setDocPassword,
 }) => {
   const [otp, setOtp] = useState("");
   const router = useNavigate();
@@ -36,6 +37,8 @@ const ModalUI = ({
         setIsModalOpen(false);
         localStorage.setItem("filePass", otp);
         setProtectedSheet(true);
+        setDocPassword(otp);
+        setOtp("");
       })
       .catch(() => {
         const data = {
@@ -47,7 +50,7 @@ const ModalUI = ({
   };
   const handleCancel = () => {
     setIsModalOpen(false);
-    router("/");
+    // router("/");
   };
   return (
     <Modal

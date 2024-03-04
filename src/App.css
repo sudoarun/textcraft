@@ -13,9 +13,11 @@ button {
 /* ============================ */
 /* <style for bg> ======== */
 .background {
-  border-radius: 16px;
-  border: 1px solid #1a1a1a;
-  background: rgba(74, 74, 74, 0.39);
+  bottom: 40px;
+  right: 40px;
+  border-radius: 8px;
+  /* border: 1px solid #1a1a1a; */
+  background: #f5eee6;
   mix-blend-mode: luminosity;
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(15px);

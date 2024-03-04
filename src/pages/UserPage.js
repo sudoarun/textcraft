@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { database } from "../firebase/config";
-import { Dropdown, Space, message } from "antd";
+import { Dropdown, message } from "antd";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import ModalUI from "../components/ModalUI";
 
@@ -159,7 +159,7 @@ const UserPage = () => {
         style={{ height: "98vh" }}
       />
 
-      <div class="background position-absolute end-0 bottom-0">
+      <div class="background position-absolute ">
         <Dropdown
           menu={{
             items,
@@ -167,7 +167,7 @@ const UserPage = () => {
           trigger={["click"]}
         >
           <a onClick={(e) => e.preventDefault()}>
-            <button class="menu__icon">
+            <button className="menu__icon">
               <span></span>
               <span></span>
               <span></span>
@@ -182,6 +182,7 @@ const UserPage = () => {
         docName={name}
         docPass={docPassword}
         setProtectedSheet={setProtectedSheet}
+        setDocPassword={setDocPassword}
       />
     </div>
   );
