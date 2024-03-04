@@ -1,8 +1,8 @@
-import { onValue, ref, set, update } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { database } from "../firebase/config";
 import { message } from "antd";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const UserPage = () => {
   const params = useParams();
@@ -19,52 +19,58 @@ const UserPage = () => {
   };
 
   const getDataBase = () => {
-    onValue(ref(db, "textCraft/" + name), (snapshot) => {
-      const resData = snapshot.val();
-      if (resData === null) {
-        set(ref(db, "textCraft/" + name), {
+    getDoc(doc(db, "textCraft", name)).then((res) => {
+      const valid = res?.data();
+      if (valid === undefined) {
+        setDoc(doc(db, "textCraft", name), {
           sharedText: "",
-        }).catch(() => {
-          const data = {
-            type: "error",
-            msg: "Something Wrong!!",
-          };
-          sendMsg(data);
-        });
-        const data = {
-          type: "success",
-          msg: "File Created!",
-        };
-        sendMsg(data);
+        })
+          .then(() => {
+            const data = {
+              type: "success",
+              msg: "File Created!",
+            };
+            sendMsg(data);
+          })
+          .catch(() => {
+            const data = {
+              type: "error",
+              msg: "Something Wrong!!",
+            };
+            sendMsg(data);
+          });
         return;
       }
-      setData(resData?.sharedText);
+      const data = {
+        type: "success",
+        msg: "File Loaded",
+      };
+      sendMsg(data);
+      setData(valid.sharedText);
     });
   };
   const onFormChange = (e) => {
     const value = e.target.value;
     setData(value);
-    setTimeout(() => {
-      const res = update(ref(db, "textCraft/" + name), {
+
+    let intervel = setInterval(() => {
+      const res = setDoc(doc(db, "textCraft", name), {
         sharedText: value,
       });
-      const data = {
-        type: "success",
-        msg: "Data updated!",
-      };
       res.catch(() => {
-        const data = {
+        const msg = {
           type: "error",
           msg: "Something Wrong!!",
         };
-        sendMsg(data);
+        sendMsg(msg);
       });
-      sendMsg(data);
-    }, 2000);
+      clearTimeout(intervel);
+    }, 3000);
   };
 
   useEffect(() => {
     getDataBase();
+    //eslint-disable-next-line
   }, []);
 
   return (
