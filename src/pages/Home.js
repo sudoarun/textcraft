@@ -6,10 +6,17 @@ export default function Home() {
   const router = useNavigate();
   const onSubmit = (e) => {
     e.preventDefault();
+    if (secret == "") {
+      return;
+    }
     router(`/${secret}`);
   };
+  const onInputChange = (e) => {
+    const value = e.target.value;
+    setSecret(value.replace(/\s/g, ""));
+  };
   return (
-    <div className="container-fluid vh-100 w-100 d-flex justify-content-center align-items-center">
+    <div className="container-fluid vh-100 w-100 d-flex justify-content-center align-items-center position-relative">
       <div className="text-center">
         <h1 className="fw-bold">Text Craft</h1>
         <span>A Simple Way to Share Text Online!</span>
@@ -21,7 +28,7 @@ export default function Home() {
                 placeholder="Enter Secret Name"
                 type="text"
                 value={secret}
-                onChange={(e) => setSecret(e.target.value)}
+                onChange={onInputChange}
                 className="border-0 input-focus-none py-1"
               />
             </div>
@@ -30,6 +37,9 @@ export default function Home() {
             </button>
           </form>
         </div>
+      </div>
+      <div className="position-absolute bottom-0">
+        <span style={{ fontSize: 10 }}>Created by sudoarun, @ 2024</span>
       </div>
     </div>
   );
