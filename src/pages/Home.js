@@ -6,7 +6,7 @@ export default function Home() {
   const router = useNavigate();
   const onSubmit = (e) => {
     e.preventDefault();
-    if (secret == "") {
+    if (secret === "") {
       return;
     }
     router(`/${secret}`);
