@@ -13,7 +13,8 @@ export default function Home() {
   };
   const onInputChange = (e) => {
     const value = e.target.value;
-    setSecret(value.replace(/\s/g, ""));
+    let regexValue = value.replace(/[^a-zA-Z0-9]/g, "");
+    setSecret(regexValue.toLowerCase());
   };
   return (
     <div className="container-fluid vh-100 w-100 d-flex justify-content-center align-items-center position-relative">

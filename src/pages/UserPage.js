@@ -91,7 +91,7 @@ const UserPage = () => {
     {
       key: "3",
       label: (
-        <a target="_blank" href="https://github.com/sudoarun">
+        <a target="_blank" href="https://github.com/sudoarun/textcraft">
           Github
         </a>
       ),
@@ -129,6 +129,7 @@ const UserPage = () => {
       setData(sharedText);
       setDocPassword(password);
       setProtectedSheet(password ? true : false);
+      password ? setFilecrypt(true) : setFilecrypt(false);
     });
   };
   const onFormChange = (e) => {
@@ -152,9 +153,8 @@ const UserPage = () => {
 
   useEffect(() => {
     getDataBase();
-    protectedSheet ? setFilecrypt(true) : setFilecrypt(false);
     //eslint-disable-next-line
-  }, [docPassword]);
+  }, []);
   return (
     <div className="position-relative">
       {contextApi}
