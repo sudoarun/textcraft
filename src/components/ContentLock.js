@@ -10,7 +10,8 @@ const ContentLock = ({ setFilecrypt, docPassword }) => {
         type="checkbox"
         id="lock"
         onClick={() => setAccess(true)}
-        defaultChecked={access ? true : false}
+        defaultChecked={false}
+        checked={access}
       />
       <label htmlFor="lock" className="lock-label">
         <span className="lock-wrapper">
