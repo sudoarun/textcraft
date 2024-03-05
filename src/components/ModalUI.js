@@ -58,6 +58,7 @@ const ModalUI = ({ isModalOpen, setIsModalOpen, docName, setDocPassword }) => {
           value={otp}
           onChange={setOtp}
           numInputs={4}
+          inputType="number"
           inputStyle={{ width: "4rem", height: "4rem", margin: "2px" }}
           renderSeparator={<span>-</span>}
           renderInput={(props) => <input {...props} />}

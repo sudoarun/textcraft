@@ -55,6 +55,7 @@ const AccessModal = ({ access, setAccess, setFilecrypt, docPassword }) => {
             value={otp}
             onChange={setOtp}
             numInputs={4}
+            inputType="number"
             inputStyle={{ width: "4rem", height: "4rem", margin: "2px" }}
             renderSeparator={<span>-</span>}
             renderInput={(props) => <input {...props} />}
