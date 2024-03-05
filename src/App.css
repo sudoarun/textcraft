@@ -56,7 +56,7 @@ button {
   width: 50%;
 }
 
-.menu__icon:hover {
+/* .menu__icon:hover {
   transform: rotate(-90deg);
 }
 
@@ -64,4 +64,58 @@ button {
   width: 0.25rem;
   transform: translateX(10px);
   background-color: rgb(255, 59, 48);
+} */
+
+/* content lock screen */
+
+#lock {
+  display: none;
+}
+.lock-label {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(80, 80, 80);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.lock-wrapper {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-10deg);
+}
+.shackle {
+  background-color: transparent;
+  height: 9px;
+  width: 14px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top: 3px solid white;
+  border-left: 3px solid white;
+  border-right: 3px solid white;
+  transition: all 0.3s;
+}
+.lock-body {
+  width: 15px;
+}
+#lock:checked + .lock-label .lock-wrapper .shackle {
+  transform: rotateY(150deg) translateX(3px);
+  transform-origin: right;
+}
+#lock:checked + .lock-label {
+  background-color: rgb(167, 71, 245);
+}
+.lock-label:active {
+  transform: scale(0.9);
+}
+
+textarea {
+  resize: none;
 }

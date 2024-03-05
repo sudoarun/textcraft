@@ -2,18 +2,10 @@ import { Modal, message } from "antd";
 import { doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import OTPInput from "react-otp-input";
-import { useNavigate } from "react-router-dom";
 import { database } from "../firebase/config";
 
-const ModalUI = ({
-  isModalOpen,
-  setIsModalOpen,
-  docName,
-  setProtectedSheet,
-  setDocPassword,
-}) => {
+const ModalUI = ({ isModalOpen, setIsModalOpen, docName, setDocPassword }) => {
   const [otp, setOtp] = useState("");
-  const router = useNavigate();
   const [notification, contextApi] = message.useMessage();
   const sendMsg = (data) => {
     const { msg, type } = data;
@@ -36,7 +28,6 @@ const ModalUI = ({
         sendMsg(data);
         setIsModalOpen(false);
         localStorage.setItem("filePass", otp);
-        setProtectedSheet(true);
         setDocPassword(otp);
         setOtp("");
       })
@@ -50,7 +41,7 @@ const ModalUI = ({
   };
   const handleCancel = () => {
     setIsModalOpen(false);
-    // router("/");
+    setOtp("");
   };
   return (
     <Modal

@@ -4,6 +4,7 @@ import { database } from "../firebase/config";
 import { Dropdown, message } from "antd";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import ModalUI from "../components/ModalUI";
+import ContentLock from "../components/ContentLock";
 
 const UserPage = () => {
   const params = useParams();
@@ -12,6 +13,7 @@ const UserPage = () => {
   const [docPassword, setDocPassword] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [protectedSheet, setProtectedSheet] = useState(false);
+  const [filecrypt, setFilecrypt] = useState(false);
   const [notification, contextApi] = message.useMessage();
   const db = database;
   const sendMsg = (data) => {
@@ -60,7 +62,7 @@ const UserPage = () => {
         <a
           target="_blank"
           onClick={() =>
-            window.navigator.share({
+            navigator.share({
               text: "TextCraft | Document ",
               title: "TextCraft - A simple text share application",
               url: "",
@@ -88,7 +90,11 @@ const UserPage = () => {
     },
     {
       key: "3",
-      label: <a target="_blank">Github</a>,
+      label: (
+        <a target="_blank" href="https://github.com/sudoarun">
+          Github
+        </a>
+      ),
     },
   ];
   const getDataBase = () => {
@@ -146,44 +152,52 @@ const UserPage = () => {
 
   useEffect(() => {
     getDataBase();
+    protectedSheet ? setFilecrypt(true) : setFilecrypt(false);
     //eslint-disable-next-line
-  }, []);
+  }, [docPassword]);
   return (
     <div className="position-relative">
       {contextApi}
-      <textarea
-        value={data}
-        onChange={onFormChange}
-        placeholder="Type Your Text Here ..."
-        className="w-100 border-0 input-focus-none "
-        style={{ height: "98vh" }}
-      />
+      {!filecrypt ? (
+        <div>
+          <textarea
+            value={data}
+            onChange={onFormChange}
+            placeholder="Type Your Text Here ..."
+            className="w-100 border-0 input-focus-none "
+            style={{ height: "98vh" }}
+          />
 
-      <div class="background position-absolute ">
-        <Dropdown
-          menu={{
-            items,
-          }}
-          trigger={["click"]}
-        >
-          <a onClick={(e) => e.preventDefault()}>
-            <button className="menu__icon">
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-          </a>
-        </Dropdown>
-      </div>
-      <ModalUI
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        key={"Password Modal"}
-        docName={name}
-        docPass={docPassword}
-        setProtectedSheet={setProtectedSheet}
-        setDocPassword={setDocPassword}
-      />
+          <div className="background position-absolute ">
+            <Dropdown
+              menu={{
+                items,
+              }}
+              trigger={["click"]}
+            >
+              <a onClick={(e) => e.preventDefault()}>
+                <button className="menu__icon">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+              </a>
+            </Dropdown>
+          </div>
+          <ModalUI
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            key={"Password Modal"}
+            docName={name}
+            docPass={docPassword}
+            setDocPassword={setDocPassword}
+          />
+        </div>
+      ) : (
+        <div>
+          <ContentLock setFilecrypt={setFilecrypt} docPassword={docPassword} />
+        </div>
+      )}
     </div>
   );
 };
