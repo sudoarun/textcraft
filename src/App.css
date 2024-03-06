@@ -1,6 +1,10 @@
 .input-focus-none:focus {
   outline: none;
 }
+.pointer {
+  cursor: pointer;
+}
+
 /* <reset-style> ============================ */
 button {
   border: none;

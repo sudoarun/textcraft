@@ -59,6 +59,7 @@ const UserPage = () => {
     {
       key: "2",
       label: (
+        // eslint-disable-next-line
         <a
           target="_blank"
           onClick={() =>
@@ -76,6 +77,7 @@ const UserPage = () => {
     {
       key: "1",
       label: (
+        // eslint-disable-next-line
         <a
           target="_blank"
           onClick={() => (protectedSheet ? unlock() : setIsModalOpen(true))}
@@ -91,7 +93,12 @@ const UserPage = () => {
     {
       key: "3",
       label: (
-        <a target="_blank" href="https://github.com/sudoarun/textcraft">
+        <a
+          target="_blank"
+          without
+          rel="noreferrer"
+          href="https://github.com/sudoarun/textcraft"
+        >
           Github
         </a>
       ),
@@ -168,22 +175,22 @@ const UserPage = () => {
             style={{ height: "98vh" }}
           />
 
-          <div className="background position-absolute ">
-            <Dropdown
-              menu={{
-                items,
-              }}
-              trigger={["click"]}
-            >
-              <a onClick={(e) => e.preventDefault()}>
+          <Dropdown
+            menu={{
+              items,
+            }}
+            trigger={["click"]}
+          >
+            <div className="background position-absolute pointer">
+              <span onClick={(e) => e.preventDefault()}>
                 <button className="menu__icon">
                   <span></span>
                   <span></span>
                   <span></span>
                 </button>
-              </a>
-            </Dropdown>
-          </div>
+              </span>
+            </div>
+          </Dropdown>
           <ModalUI
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
